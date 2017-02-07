@@ -10,8 +10,8 @@ module.exports = (app,passport) => {
     res.render('login.ejs', {message: req.flash('loginMessage')});
   });
   // singup
-  app.get('/singup', () => {
-    res.render('singup.ejs', {message: req.flash('singupMessage')});
+  app.get('/signup', (req, res) => {
+    res.render('signup.ejs', {message: req.flash('singupMessage')});
   });
   // profile
   app.get('/profile', isLoggedIn, (req, res) => {

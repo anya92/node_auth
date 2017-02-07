@@ -36,10 +36,14 @@ var _config = require('../config');
 
 var _config2 = _interopRequireDefault(_config);
 
+var _expressEjsLayouts = require('express-ejs-layouts');
+
+var _expressEjsLayouts2 = _interopRequireDefault(_expressEjsLayouts);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var app = (0, _express2.default)(); // setup our application
-
+// setup our application
+var app = (0, _express2.default)();
 var port = process.env.PORT || 8080;
 var mLab = 'mongodb://' + _config2.default.host + '/' + _config2.default.name;
 
@@ -51,6 +55,7 @@ app.use(_bodyParser2.default.urlencoded({ extended: true }));
 app.use(_bodyParser2.default.json());
 
 app.set('view engine', 'ejs');
+//app.use(expressLayouts);
 
 // for passport
 app.use((0, _expressSession2.default)({ secret: 'topsecret' }));
@@ -59,6 +64,8 @@ app.use(_passport2.default.session());
 app.use((0, _connectFlash2.default)());
 // routes
 require('../app/routes.js')(app, _passport2.default);
+
+app.use(_express2.default.static('./public'));
 //launch
 app.listen(port);
 console.log('Server running on port ' + port);

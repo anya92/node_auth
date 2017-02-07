@@ -8,6 +8,7 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import session from 'express-session';
 import configDB from '../config';
+import expressLayouts from 'express-ejs-layouts';
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -21,6 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.set('view engine', 'ejs');
+//app.use(expressLayouts);
 
 // for passport
 app.use(session({secret: 'topsecret'}));
@@ -29,6 +31,8 @@ app.use(passport.session());
 app.use(flash());
 // routes
 require('../app/routes.js')(app, passport);
+
+app.use(express.static('./public'));
 //launch
 app.listen(port);
 console.log(`Server running on port ${port}`);

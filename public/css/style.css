@@ -1,0 +1,24 @@
+body {
+  background-image: url(/images/img1.jpg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  padding-top: 150px;
+  color: white;
+}
+
+h1 {
+  color: white;
+}
+p {
+  color: white;
+}
+.btn {
+  border-radius: 0;
+  margin: 20px;
+}
+
+span {
+  color: rgb(75,80,240);
+}
