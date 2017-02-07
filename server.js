@@ -30,6 +30,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 // routes
+require('../config/passport')(passport);
 require('../app/routes.js')(app, passport);
 
 app.use(express.static('./public'));

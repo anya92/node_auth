@@ -63,6 +63,7 @@ app.use(_passport2.default.initialize());
 app.use(_passport2.default.session());
 app.use((0, _connectFlash2.default)());
 // routes
+require('../config/passport')(_passport2.default);
 require('../app/routes.js')(app, _passport2.default);
 
 app.use(_express2.default.static('./public'));
