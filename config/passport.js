@@ -24,9 +24,8 @@ module.exports = function(passport) {
     process.nextTick(() => {
       User.findOne({'local.email': email}, (err, user) => {
         if (err) return done(err);
-        if (user) {
-          return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
-        } else {
+        if (user) return done(null, false, req.flash('signupMessage', 'That email is already taken'));
+
           let newUser = new User();
           newUser.local.email = email;
           newUser.local.password = newUser.generateHash(password);
@@ -34,7 +33,7 @@ module.exports = function(passport) {
             if(err) throw err;
             return done(null, newUser);
           });
-        }
+
       });
     });
   }));
