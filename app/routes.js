@@ -1,10 +1,11 @@
 // all the routes for our application
 
-module.exports = (app,passport) => {
+module.exports = (app, passport) => {
   // home page
   app.get('/', (req, res) => {
     res.render('index.ejs');
   });
+  // AUTHENTICATION (first login)
   // login
   app.get('/login', (req, res) => {
     res.render('login.ejs', {message: req.flash('loginMessage')});
@@ -37,6 +38,20 @@ module.exports = (app,passport) => {
   // google routes
   app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email']}));
   app.get('/auth/google/callback', passport.authenticate('google', {
+    successRedirect: '/profile',
+    failureRedirect: '/'
+  }));
+  // AUTHORIZE (already logged in => connecting other social acount)
+  app.get('/connect/local', (req, res) => {
+    res.render('connect-local.ejs', {message: req.flash('loginMessage')});
+  });
+  app.post('/connect/local', passport.authenticate('local-signup', {
+    successRedirect: '/profile',
+    failureRedirect: '/connect/local',
+    failureFlash: true
+  }));
+  app.get('/connect/google', passport.authorize('google', { scope: ['profile', 'email']}));
+  app.get('/connect/google/callback', passport.authorize('google', {
     successRedirect: '/profile',
     failureRedirect: '/'
   }));
